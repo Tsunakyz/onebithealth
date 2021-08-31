@@ -1,12 +1,25 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, TouchableOpacity, Share } from 'react-native'
 import If from '../../If'
 import styles from './styles'
 
 const ResultImc = ({value, message}) => {
 
+    const onShare = async () => {
+        const result = await Share.share({
+            message: `Meu IMC hoje é: ${value}`
+        })
+    }
+
     return (
         <View style={styles.result}>
+            <View style={styles.boxShareButton}>
+                {value ?
+                    <TouchableOpacity style={styles.share} onPress={onShare}>
+                        <Text style={styles.shareText}>Share</Text>
+                    </TouchableOpacity> : false
+                }
+            </View>
             <Text style={styles.information}>{message}</Text>
             <Text style={styles.number}>{value}</Text>
             <Text style={styles.information}>

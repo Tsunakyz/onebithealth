@@ -4,13 +4,9 @@ const styles = StyleSheet.create({
     result: {
       flex: 1,
       marginTop: 15,
-      paddingTop: 60,
-      borderRadius: 50,
+      paddingTop: 15,
       alignItems: "center",
-      fontSize: 48,
       width: '100%',
-      fontWeight: 'bold',
-      color: '#39A275',
     },
     information: {
         fontSize: 18,
@@ -21,6 +17,21 @@ const styles = StyleSheet.create({
         fontSize: 48,
         color: '#39A275',
         fontWeight: 'bold'
+    },
+    boxShareButton: {
+        width: "100%",
+        alignItems: 'center',
+        marginBottom: 10
+    },
+    share: {
+        backgroundColor: '#1877f2',
+        borderRadius: 50,
+        paddingVertical: 5
+    },
+    shareText: {
+        color: '#fff',
+        fontWeight: "bold",
+        paddingHorizontal: 30
     }
 })
 
