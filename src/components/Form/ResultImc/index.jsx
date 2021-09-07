@@ -13,13 +13,7 @@ const ResultImc = ({value, message}) => {
 
     return (
         <View style={styles.result}>
-            <View style={styles.boxShareButton}>
-                {value ?
-                    <TouchableOpacity style={styles.share} onPress={onShare}>
-                        <Text style={styles.shareText}>Share</Text>
-                    </TouchableOpacity> : false
-                }
-            </View>
+            
             <Text style={styles.information}>{message}</Text>
             <Text style={styles.number}>{value}</Text>
             <Text style={styles.information}>
@@ -29,6 +23,11 @@ const ResultImc = ({value, message}) => {
                 <If condition={value && value >= 30 && value < 40}>Obesidade moderada</If>
                 <If condition={value && value >= 40}>Obesidade mórbida</If>
             </Text>
+            <View style={styles.boxShareButton}>
+                <TouchableOpacity style={styles.share} onPress={onShare}>
+                    <Text style={styles.shareText}>Share</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }

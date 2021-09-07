@@ -2,11 +2,11 @@ import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
     result: {
-      flex: 1,
-      marginTop: 15,
-      paddingTop: 15,
-      alignItems: "center",
-      width: '100%',
+        flex:1,
+        marginTop: 20,
+        paddingTop: 15,
+        alignItems: "center",
+        width: "100%",
     },
     information: {
         fontSize: 18,
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     boxShareButton: {
         width: "100%",
         alignItems: 'center',
-        marginBottom: 10
+        marginTop: 10
     },
     share: {
         backgroundColor: '#1877f2',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, TextInput, View, TouchableOpacity, Keyboard, Vibration, Pressable } from 'react-native'
+import { Text, TextInput, View, TouchableOpacity, Keyboard, Vibration, Pressable, FlatList } from 'react-native'
 import ResultImc from './ResultImc'
 import styles from './styles'
 
@@ -10,12 +10,14 @@ const Form = () => {
     const [imc, setImc] = useState(null)
     const [textButton, setTextButton] = useState('Calcular')
     const [errorMessage, setErrorMessage] = useState(null)
+    const [imcList, setImcList] = useState([])
 
     function imcCalculator() {
         const heightFormat = height.replace(',', '.')
         const weightFormat = weight.replace(',', '.')
 
         const result = (weightFormat / (heightFormat*heightFormat)).toFixed(2)
+        setImcList(arr => [...arr, {id: new Date().getTime(), imc: result}])
         setImc(result)
     }
 
@@ -46,33 +48,59 @@ const Form = () => {
     }
 
     return (
-        <Pressable style={styles.formContext} onPress={() => Keyboard.dismiss()}>
-            <View style={styles.form}>
-                <Text style={styles.formLabel}>Altura</Text>
-                <Text style={styles.errorMessage}>{errorMessage}</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setHeight}
-                    value={height}
-                    placeholder="Ex.: 1.75"
-                    keyboardType="numeric" />
-                <Text style={styles.formLabel}>Peso</Text>
-                <Text style={styles.errorMessage}>{errorMessage}</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setWeight}
-                    value={weight}
-                    placeholder="Ex.: 75.310"
-                    keyboardType="numeric" />
-                <TouchableOpacity
-                    onPress={validation}
-                    style={styles.button}
-                >
-                    <Text style={styles.textButton}>{textButton}</Text>
-                </TouchableOpacity>
-            </View>
-            <ResultImc message={message} value={imc} />
-        </Pressable>
+        <View style={styles.formContext}>
+            {imc == null ? (
+                <Pressable style={styles.form} onPress={() => Keyboard.dismiss()}>
+                    <Text style={styles.formLabel}>Altura</Text>
+                    <Text style={styles.errorMessage}>{errorMessage}</Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setHeight}
+                        value={height}
+                        placeholder="Ex.: 1.75"
+                        keyboardType="numeric" />
+                    <Text style={styles.formLabel}>Peso</Text>
+                    <Text style={styles.errorMessage}>{errorMessage}</Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setWeight}
+                        value={weight}
+                        placeholder="Ex.: 75.310"
+                        keyboardType="numeric" />
+                    <TouchableOpacity
+                        onPress={validation}
+                        style={styles.button}
+                    >
+                        <Text style={styles.textButton}>{textButton}</Text>
+                    </TouchableOpacity>
+                </Pressable>
+            ) : (
+                <View style={styles.exibitionResult}>
+                    <ResultImc message={message} value={imc} />
+                    <TouchableOpacity
+                        onPress={validation}
+                        style={styles.button}
+                    >
+                        <Text style={styles.textButton}>{textButton}</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
+            <FlatList
+                style={styles.listImcs}
+                data={imcList}
+                renderItem={({item}) => {
+                    return (
+                        <Text style={styles.resultImcItem}>
+                            <Text style={styles.textResultItemList}>Resultado IMC: </Text>
+                            <Text>{item.imc}</Text>
+                        </Text>
+                    )
+                }}
+                keyExtractor={item => `${item.id}`}
+            >
+
+            </FlatList>
+        </View>
     )
 }
 
